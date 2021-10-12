@@ -1,6 +1,12 @@
 #include <iostream>
+#include <string>
 
-int main() {
-    std::cout << "Hello World!";
+auto main() -> int
+{
+    std::string name;
+
+    std::getline(std::cin, name);
+    std::cout << "Hello, " << name << "!\n";
+    
     return 0;
 }
