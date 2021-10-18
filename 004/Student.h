@@ -1,3 +1,6 @@
+#ifndef STUDENT_H
+#define STUDENT_H
+
 #include <string>
 
 struct Student
@@ -13,3 +16,5 @@ struct Student
 
     std::string toString() const;
 };
+
+#endif

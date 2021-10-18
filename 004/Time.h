@@ -1,3 +1,6 @@
+#ifndef TIME_H
+#define TIME_H
+
 #include <string>
 
 enum class TimeOfDay {morning, day, evening, night};
@@ -31,3 +34,5 @@ struct Time
 
     std::string toString() const;
 };
+
+#endif
