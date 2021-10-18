@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
-
+#include <math.h> 
 
 auto pop_top(std::stack<double>& stack) -> double
 {
@@ -38,6 +38,72 @@ auto evaluate_subtraction(std::stack<double>& stack) -> void
     stack.push(a - b);
 }
 
+void evaluate_multiplication(std::stack<double>& stack)
+{
+    if (stack.size() < 2) {
+        throw std::logic_error{"not enough operands for -"};
+    }
+    auto const b = pop_top(stack);
+    auto const a = pop_top(stack);
+    stack.push(a * b);
+}
+
+void evaluate_division(std::stack<double>& stack)
+{
+    if (stack.size() < 2) {
+        throw std::logic_error{"not enough operands for -"};
+    }
+    auto const b = pop_top(stack);
+    auto const a = pop_top(stack);
+    stack.push(a / b);
+}
+
+void evaluate_int_division(std::stack<double>& stack)
+{
+    if (stack.size() < 2) {
+        throw std::logic_error{"not enough operands for -"};
+    }
+    auto const b = pop_top(stack);
+    auto const a = pop_top(stack);
+    stack.push(floor(a / b));
+}
+
+void evaluate_modulo(std::stack<double>& stack)
+{
+    if (stack.size() < 2) {
+        throw std::logic_error{"not enough operands for -"};
+    }
+    auto const b = pop_top(stack);
+    auto const a = pop_top(stack);
+    stack.push(std::fmod(a, b));
+}
+
+void evaluate_power(std::stack<double>& stack)
+{
+    if (stack.size() < 2) {
+        throw std::logic_error{"not enough operands for -"};
+    }
+    auto const b = pop_top(stack);
+    auto const a = pop_top(stack);
+    stack.push(pow(a, b));
+}
+
+void evaluate_square_root(std::stack<double>& stack)
+{
+    auto const a = pop_top(stack);
+    stack.push(sqrt(a));
+}
+
+void evaluate_percentage(std::stack<double>& stack)
+{
+    if (stack.size() < 2) {
+        throw std::logic_error{"not enough operands for -"};
+    }
+    auto const b = pop_top(stack);
+    auto const a = pop_top(stack);
+    stack.push(a * b / 100);
+}
+
 
 auto make_args(int argc, char* argv[]) -> std::vector<std::string>
 {
@@ -59,6 +125,20 @@ auto main(int argc, char* argv[]) -> int
                 evaluate_addition(stack);
             } else if (each == "-") {
                 evaluate_subtraction(stack);
+            } else if (each == "*") {
+                evaluate_multiplication(stack);
+            } else if (each == "/") {
+                evaluate_division(stack);
+            } else if (each == "//") {
+                evaluate_int_division(stack);
+            } else if (each == "%") {
+                evaluate_modulo(stack);
+            } else if (each == "**") {
+                evaluate_power(stack);
+            } else if (each == "sqrt") {
+                evaluate_square_root(stack);
+            } else if (each == "%%") {
+                evaluate_percentage(stack);
             } else {
                 stack.push(std::stod(each));
             }
