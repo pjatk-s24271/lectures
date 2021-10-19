@@ -62,7 +62,7 @@ std::string toString(TimeOfDay timeOfDay)
             return "night";
             break;
         
-        default
+        default:
             return "err";
             break;
     }
