@@ -1,5 +1,4 @@
-#include <RPN_calculator.h>
-
+#include "RPN_calculator.h"
 #include <algorithm>
 #include <iostream>
 #include <iterator>
@@ -7,7 +6,7 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
-
+#include <math.h>
 
 static auto pop_top(std::stack<double>& stack) -> double
 {
@@ -17,7 +16,6 @@ static auto pop_top(std::stack<double>& stack) -> double
     stack.pop();
     return element;
 }
-
 
 namespace student { 
     namespace rpn_calculator {
@@ -47,7 +45,7 @@ namespace student {
             stack.push(a + b);
         }
 
-        struct Subtraction::evaluate(stack_type& stack) const -> void
+        auto Subtraction::evaluate(stack_type& stack) const -> void
         {
             if (stack.size() < 2) {
                 throw std::logic_error{"not enough operands for +"};
@@ -57,7 +55,7 @@ namespace student {
             stack.push(a - b);
         }
 
-        struct Multiplication::evaluate(stack_type& stack) const -> void
+        auto Multiplication::evaluate(stack_type& stack) const -> void
         {
             if (stack.size() < 2) {
                 throw std::logic_error{"not enough operands for +"};
@@ -67,7 +65,7 @@ namespace student {
             stack.push(a * b);
         }
 
-        struct Division::evaluate(stack_type& stack) const -> void
+        auto Division::evaluate(stack_type& stack) const -> void
         {
             if (stack.size() < 2) {
                 throw std::logic_error{"not enough operands for +"};
@@ -77,7 +75,7 @@ namespace student {
             stack.push(a / b);
         }
 
-        struct IntDivision::evaluate(stack_type& stack) const -> void
+        auto IntDivision::evaluate(stack_type& stack) const -> void
         {
             if (stack.size() < 2) {
                 throw std::logic_error{"not enough operands for +"};
@@ -87,7 +85,7 @@ namespace student {
             stack.push(floor(a / b));
         }
 
-        struct Modulo::evaluate(stack_type& stack) const -> void
+        auto Modulo::evaluate(stack_type& stack) const -> void
         {
             if (stack.size() < 2) {
                 throw std::logic_error{"not enough operands for +"};
@@ -97,7 +95,7 @@ namespace student {
             stack.push(std::fmod(a, b));
         }
 
-        struct Power::evaluate(stack_type& stack) const -> void
+        auto Power::evaluate(stack_type& stack) const -> void
         {
             if (stack.size() < 2) {
                 throw std::logic_error{"not enough operands for +"};
@@ -107,13 +105,13 @@ namespace student {
             stack.push(pow(a, b));
         }
 
-        struct SquareRoot::evaluate(stack_type& stack) const -> void
+        auto SquareRoot::evaluate(stack_type& stack) const -> void
         {
             auto const a = pop_top(stack);
             stack.push(sqrt(a));
         }
 
-        struct Percentage::evaluate(stack_type& stack) const -> void
+        auto Percentage::evaluate(stack_type& stack) const -> void
         {
             if (stack.size() < 2) {
                 throw std::logic_error{"not enough operands for +"};
@@ -166,6 +164,15 @@ auto main(int argc, char* argv[]) -> int
     for (auto const& each : make_args(argc, argv)) {
         try {
             using student::rpn_calculator::Addition;
+            using student::rpn_calculator::Subtraction;
+            using student::rpn_calculator::Multiplication;
+            using student::rpn_calculator::Division;
+            using student::rpn_calculator::Addition;
+            using student::rpn_calculator::IntDivision;
+            using student::rpn_calculator::Modulo;
+            using student::rpn_calculator::Power;
+            using student::rpn_calculator::SquareRoot;
+            using student::rpn_calculator::Percentage;
             using student::rpn_calculator::Literal;
             using student::rpn_calculator::Print;
 
