@@ -7,6 +7,15 @@ Time::Time(int h, int m, int s)
     this -> h = h;
     this -> m = m;
     this -> s = s;
+
+    if(this -> h < 0) this -> h = 0;
+    else this -> h = this -> h % 24;
+
+    if(this -> m < 0) this -> m = 0;
+    else this -> m = this -> m % 60;
+
+    if(this -> s < 0) this -> s = 0;
+    else this -> s = this -> s % 60;
 }
 
 void Time::nextHour()
