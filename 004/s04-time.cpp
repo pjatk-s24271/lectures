@@ -61,6 +61,10 @@ std::string toString(TimeOfDay timeOfDay)
         case TimeOfDay::night:
             return "night";
             break;
+        
+        default
+            return "err";
+            break;
     }
 }
 
@@ -71,6 +75,7 @@ TimeOfDay Time::timeOfDay() const
     else if(h < 17) return TimeOfDay::day;
     else if(h < 22) return TimeOfDay::evening;
     else if(h < 24) return TimeOfDay::night;
+    else return TimeOfDay::day;
 }
 
 Time Time::operator+(Time const& time) const
