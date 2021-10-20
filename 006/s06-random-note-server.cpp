@@ -15,8 +15,7 @@ int con = 0;
 
 int msg = 0;
 std::string msgs[MAX_MSG];
-
-std::mutex msg_mtx ; 
+std::mutex msg_mtx;
 
 void handleConnection(int connection)
 {
@@ -26,16 +25,18 @@ void handleConnection(int connection)
 
         int bytesRec = recv(connection, buffer, 1023, 0);
         if(bytesRec <= 0) break;
-
-        std::lock_guard<std::mutex> lock { msg_mtx };
         
+        msg_mtx.lock();
+
         if(msg == MAX_MSG) msg = 0;
         msgs[msg] = std::string(buffer);
         msg++;
         int random = rand() % msg;
 
+        msg_mtx.unlock();
+
         int bytesSend = send(connection, msgs[random].c_str(), msgs[random].size(), 0);
-        if(bytesSend < 0) break;
+        if(bytesSend < 0) break;        
     }
 
     close(connection);
